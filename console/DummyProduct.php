@@ -23,7 +23,7 @@ class DummyProduct extends Command
      * Execute the console command.
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $this->generateProductFactory();
         $amount = (integer) $this->option('amount');

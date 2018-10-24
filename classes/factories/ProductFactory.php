@@ -12,7 +12,7 @@ $factory->define(\Octommerce\Octommerce\Models\Product::class, function (Faker\G
         'description' => $faker->paragraph(7, true),
         'discount_type' => $addDiscount ? 'percentage' : null,
         'discount_amount' => $addDiscount ? $faker->randomDigitNotNull : null,
-        'tags' => factory(\Octommerce\Octommerce\Models\Tag::class, 3)->create(),
+        'tags' => factory(\Octommerce\Octommerce\Models\Tag::class)->create(),
         'brand' => factory(\Octommerce\Octommerce\Models\Brand::class)->create(),
         'images' => $faker->image(storage_path() . '/temp', 400, 300, 'food', true, false),
     ];
