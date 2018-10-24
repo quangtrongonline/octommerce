@@ -200,6 +200,8 @@ class ProductList extends ComponentBase
 
         if ($this->property('categoryFilter') != '') {
             $this->filterByCategory($query, $this->property('categoryFilter'));
+        }elseif($this->property('categorySlug') != ''){
+            $this->filterByCategory($query, $this->property('categorySlug'));
         }
 
         if ($this->property('listFilter') != '') {
