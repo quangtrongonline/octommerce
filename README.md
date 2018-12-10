@@ -9,6 +9,7 @@
 ## Plugin Dependencies
 - RainLab.User
 - RainLab.Location
+- RainLab.Notify
 - Responsiv.Currency
 - Responsiv.Pay
 
@@ -20,3 +21,9 @@
 - Payment
 - Taxation
 - Multilanguage
+
+## How to install
+- install all plugin depandencies
+- run `` composer update `` in root project
+- run `` php artisan october:up ``
+
