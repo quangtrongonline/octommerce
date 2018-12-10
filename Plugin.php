@@ -28,6 +28,17 @@ class Plugin extends PluginBase
 {
     public $require = ['RainLab.User', 'RainLab.Location', 'Responsiv.Currency', 'Responsiv.Pay'];
 
+    public function pluginDetails()
+    {
+        return [
+            'name'        => 'octommerce.octommerce::lang.plugin.name',
+            'description' => 'octommerce.octommerce::lang.plugin.description',
+            'author'      => 'Octommerce',
+            'icon'        => 'icon-shopping-cart',
+            'homepage'    => 'http://octommerce.com'
+        ];
+    }
+
     public function boot()
     {
         //
@@ -267,6 +278,103 @@ class Plugin extends PluginBase
 
         $this->registerConsoleCommand('octommerce:dummy-product', 'Octommerce\Octommerce\Console\DummyProduct');
         $this->registerConsoleCommand('octommerce:delete-cart', 'Octommerce\Octommerce\Console\DeleteCart');
+    }
+
+    public function registerNavigation()
+    {
+        return [
+            'user' => [
+                'label'       => 'rainlab.user::lang.users.menu_label',
+                'url'         => Backend::url('rainlab/user/users'),
+                'icon'        => 'icon-user',
+                'iconSvg'     => 'plugins/rainlab/user/assets/images/user-icon.svg',
+                'permissions' => ['rainlab.users.*'],
+                'order'       => 500,
+            ],
+            'products' => [
+                'label'       => 'Products',
+                'url'         => Backend::url('octommerce/octommerce/products'),
+                'icon'        => 'icon-tags',
+                'permissions' => ['octommerce.octommerce.access_products'],
+                'order'       => 300,
+                'sideMenu'    => [
+                    'products' => [
+                        'label'       => 'All Products',
+                        'url'         => Backend::url('octommerce/octommerce/products'),
+                        'icon'        => 'icon-barcode'
+                    ],
+                    'attributes' => [
+                        'label'       => 'Attributes',
+                        'url'         => Backend::url('octommerce/octommerce/productattributes'),
+                        'icon'        => 'icon-flag'
+                    ],
+                    'categories' => [
+                        'label'       => 'Categories',
+                        'url'         => Backend::url('octommerce/octommerce/categories'),
+                        'icon'        => 'icon-table'
+                    ],
+                    'brands' => [
+                        'label'       => 'Brands',
+                        'url'         => Backend::url('octommerce/octommerce/brands'),
+                        'icon'        => 'icon-eye'
+                    ],
+                    'lists' => [
+                        'label'       => 'Lists',
+                        'url'         => Backend::url('octommerce/octommerce/productlists'),
+                        'icon'        => 'icon-reorder'
+                    ],
+                    'reviews' => [
+                        'label'       => 'Reviews',
+                        'url'         => Backend::url('octommerce/octommerce/reviews'),
+                        'icon'        => 'icon-comments'
+                    ],
+                    'wishlists' => [
+                        'label'       => 'Wishlists',
+                        'url'         => Backend::url('octommerce/octommerce/wishlists'),
+                        'icon'        => 'icon-heart'
+                    ],
+                ],
+            ],
+            'commerce' => [
+                'label'       => 'Commerce',
+                'url'         => Backend::url('octommerce/octommerce/orders'),
+                'icon'        => 'icon-shopping-cart',
+                'permissions' => ['octommerce.octommerce.access_orders'],
+                'order'       => 310,
+                'sideMenu'    => [
+                    'orders' => [
+                        'label'       => 'Orders',
+                        'url'         => Backend::url('octommerce/octommerce/orders'),
+                        'icon'        => 'icon-shopping-cart',
+                        'permissions' => ['octommerce.octommerce.access_orders']
+                    ],
+                    'orderstatuses' => [
+                        'label'       => 'Order Statuses',
+                        'url'         => Backend::url('octommerce/octommerce/orderstatuses'),
+                        'icon'        => 'icon-tasks',
+                        'permissions' => ['octommerce.octommerce.manage_order_statuses']
+                    ]
+                ],
+            ],
+        ];
+    }
+
+     public function registerPermissions()
+    {
+        return [
+            'octommerce.octommerce.access_products' => [
+                'tab'   => 'Products',
+                'label' => 'Access Products'
+            ],
+            'octommerce.octommerce.access_orders' => [
+                'tab'   => 'Commerce',
+                'label' => 'Access Orders'
+            ],
+            'octommerce.octommerce.manage_order_statuses' => [
+                'tab'   => 'Commerce',
+                'label' => 'Manage Order Statuses'
+            ],
+        ];
     }
 
     public function registerComponents()
